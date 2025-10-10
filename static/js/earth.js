@@ -9,6 +9,7 @@ const SCALE_DEFAULT = 1.3;
 const MAX_SCALE = 1.6;
 const SCALE_SPEED = 0.03;
 
+// Lógica del click
 if (EarthBtn) {
     EarthBtn.addEventListener('click', function() {
         fetch("/click/") // Llamar funcion al hacer click (Posiblemente sea bueno cambiar la url idk)
@@ -16,6 +17,8 @@ if (EarthBtn) {
                 .then(data => {
                     puntos.textContent = data.puntuacion;
                 });
+
+    // Animacion de escalar y volver a tamaño normal cuando se presiona el boton
     scale = MAX_SCALE;
 
     function shrinkScale() {
@@ -30,6 +33,7 @@ if (EarthBtn) {
 }
 
 // Animación del botón
+// Variables
 const canvas = document.getElementById('Earth-canvas');
 
 const FRAME_WIDTH = 48;
@@ -45,7 +49,7 @@ canvas.height = FRAME_HEIGHT * MAX_SCALE;
 const img = new Image();
 img.src = btnImgPath;
 
-
+// Llamamos a la funcion de animations.js para empezar la animación
 animateSprite({
     canvas: canvas,
     img: img,

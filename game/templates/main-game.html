@@ -1,26 +1,35 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Eco Clicker</title>
+
+	<!-- Se carga el css -->
 	<link rel="stylesheet" href="{% static 'css/main-game.css' %}">
 </head>
+
 <body>
+	<!-- Canvas del fondo -->
 	<canvas id="bg" width="1920" height="1080"></canvas>
 	
+	<!-- Puntuacion -->
     <p id="puntuacion">Puntuación: <span id="puntos">{{ puntuacion }}</span></p>
     
+	<!-- Botón de la Tierra -->
     <button id="Earth-btn">
 		<canvas id="Earth-canvas" width="48" height="48"></canvas>
 	</button>
 
+	<!-- Menú de la tienda -->
 	<div id="shop-menu">
 		<canvas id="shop" width="500" height="600"></canvas>
 		<p id="menu-title">Tienda</p>
 		<hr>
 	</div>
 
+	<!-- Scripts -->
     <script>
 		// Variables globales para rutas de imágenes
 		const bgImgPath = "{% static 'imgs/bg.png' %}";
