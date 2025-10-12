@@ -1,18 +1,36 @@
 # Eco Clicker
 
-`Un juego clicker con tematica de salvar el planeta`
+*Un juego clicker con tematica de salvar el planeta*
+
+### Recomendaciones
+
+Es recomendable usar un entorno virtual para manejar la pagina asi que se recomienda ejecutar
+```bash
+python -m venv venv
+```
+Y luego ejecutar
+
+Para Windows: `venv\Scripts\activate`
+o Para linux: `source venv/bin/activate`
+
+De esta manera activamos el entorno virtual y podemos pasar a descargar los requisitos del proyecto
 
 ### Requerimentos
 - Python3
 - Django
 
+
 Para instalar los requisitos puedes ejecutar
-`pip install django`
+```bash
+pip install -r requeriments.txt
+```
 
 ### Ejecutar la pagina
 
 Estando en el directorio del repositorio ejecutar
-`python manage.py runserver`
+```bash 
+python manage.py runserver
+```
 
 ### To-Do
 - [ ] Diseños de la tienda
