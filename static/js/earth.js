@@ -17,6 +17,46 @@ if (EarthBtn) {
                 .then(data => {
                     puntos.textContent = data.puntuacion;
                 });
+    
+    var extraPoint = document.createElement("p");
+    extraPoint.textContent = "+1";
+    extraPoint.style.position = "absolute";
+
+    extraPoint.style.opacity = 0; // Inicia invisible
+    extraPoint.style.transition = "opacity 0.2s ease-in"; // Fade-in rápido
+
+    let EarthRec = canvas.getBoundingClientRect();
+
+    let top = EarthRec.top + (Math.random() * EarthRec.height);
+    let left = EarthRec.left + Math.random() * EarthRec.width;
+
+    extraPoint.style.top = top + "px";
+    extraPoint.style.left = left + "px";
+    extraPoint.style.pointerEvents = "none"; // Evita que el <p> reciba eventos de puntero
+    document.body.appendChild(extraPoint);
+
+    // Función para realizar el fade-in y fade-out
+    function fadeEffect() {
+      // Fade in
+      setTimeout(() => {
+          extraPoint.style.opacity = 1;
+      }, 0);
+
+      // Fade out después de cierto tiempo (ej. 1.5 segundos)
+      setTimeout(() => {
+          extraPoint.style.transition = "opacity 1s ease-out"; // Fade-out más largo
+          extraPoint.style.opacity = 0;
+      }, 1000); // El fade-out ocurre después de 1.5 segundos del fade-in
+    }
+
+    // Llamamos a la función para que se ejecute la animación
+    fadeEffect();
+
+    // Remover el elemento después de que desaparezca
+    setTimeout(() => {
+      extraPoint.remove();
+    }, 2000); // Se remueve después de 2.5 segundos (tiempo total)
+
 
     // Animacion de escalar y volver a tamaño normal cuando se presiona el boton
     scale = MAX_SCALE;
