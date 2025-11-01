@@ -30,6 +30,7 @@ hr {
 
 canvas {
     image-rendering: pixelated;
+
 }
 
 #bg {
@@ -41,13 +42,18 @@ canvas {
     z-index: -1;
 }
 
+#button-container {
+  left: 40%;
+  top: 45%;
+  /*transform: translateY(-50%);*/
+  position: absolute;
+
+}
+
 #Earth-btn {
     position: absolute;
-    left: 25%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 244px;
-    height: 244px;
+    width: 30%;
+    height: 50%;
     background: none;
     border: none;
     cursor: pointer;
@@ -59,15 +65,16 @@ canvas {
 }
 
 #Earth-canvas {
-    width: 192px;
-    height: 192px;
+    width: 500px;
+    height: 500px;
     display: block;
 }
 
 #puntuacion {
     font-size: 24px;
     top: 20px;
-    left: 20px;
+    left: 30px;
+    position: fixed
 }
 
 #menu-title {
@@ -81,12 +88,33 @@ canvas {
     position: absolute;
     display: block;
     top: 50%;
-    width: 400px;
-    height: 600px;
+    width: 25%;
+    height: 90%;
     transform: translateY(-50%);
     right: 2%;
     z-index: 9;
     background-color: white;
+}
+
+.fondo {
+    top: 90%;
+    left: 10%;
+    width: 60%;
+    height: 3%;
+    background-color: #3a3f4b;
+    position: absolute;
+    z-index: 10;
+    border: 2px solid black;
+    border-radius: 10px
+}
+
+.status {
+    border-radius: 5px;
+    background-color: #f5e8c7;
+    width: 0%;
+    height: 100%;
+    z-index: 9;
+    position: relative;
 }
 
 .mejora-btn {
