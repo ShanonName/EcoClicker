@@ -25,7 +25,7 @@ export class DialogueBox {
         this.textIndex = 0; // Índice global del caracter a dibujar
         this.wrappedLines = []; // Líneas después del wrapText
 
-        const FPS = 1;
+        const FPS = 60;
         const FRAME_DURATION = 1000 / FPS;
         
         const img = new Image();
@@ -47,12 +47,13 @@ export class DialogueBox {
         this.anim.start();
         this.textcontainer.style.opacity = "1";
         //this.anim.stop();
-
+        this.ctx.clearRect(0, 0, this.textC.width, this.textC.height)
+        
         // Mini configuraciones
         this.fontsize = 18;
         this.lineHeight = this.fontsize + 10;
         this.margenesX = 40;
-        this.margenesY = 100;
+        this.margenesY = 80;
         this.maxTextWidth = this.textC.width - (this.margenesX * 2);
     }
 
