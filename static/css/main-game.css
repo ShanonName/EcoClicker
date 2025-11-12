@@ -30,7 +30,10 @@ hr {
 
 canvas {
     image-rendering: pixelated;
+}
 
+img {
+    image-rendering: pixelated;
 }
 
 #bg {
@@ -40,6 +43,24 @@ canvas {
     top: 0;
     left: 0;
     z-index: -1;
+}
+
+#gato-btn {
+  background: none;
+  border: none;
+  position: absolute;
+  z-index: 3;
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#gato-canva {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: inherit;
 }
 
 #button-container {
@@ -58,7 +79,7 @@ canvas {
     border: none;
     cursor: pointer;
     outline: none;
-    z-index: 10;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,8 +113,35 @@ canvas {
     height: 90%;
     transform: translateY(-50%);
     right: 2%;
-    z-index: 9;
+    z-index: 10;
     background-color: white;
+}
+
+#textcontainer {
+    position: absolute;
+    width: 40%;
+    height: auto;
+    left: 18%;
+    top: 70%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#textbox {
+    position: absolute;
+    z-index: 9;
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+    height: auto;
+}
+
+#textC {
+    z-index: 10;
+    top: 0;
+    left: 0;
+    position: absolute;
 }
 
 .fondo {
@@ -103,7 +151,7 @@ canvas {
     height: 3%;
     background-color: #3a3f4b;
     position: absolute;
-    z-index: 10;
+    z-index: 9;
     border: 2px solid black;
     border-radius: 10px
 }
@@ -113,7 +161,7 @@ canvas {
     background-color: #f5e8c7;
     width: 0%;
     height: 100%;
-    z-index: 9;
+    z-index: 10;
     position: relative;
 }
 

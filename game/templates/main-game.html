@@ -38,8 +38,6 @@
     <div id="bar" class="status"></div>
   </div>
 
-
-
 	<!-- Menú de la tienda -->
 	<div id="shop-menu">
 		<canvas id="shop" width="500" height="600"></canvas>
@@ -47,17 +45,30 @@
 		<hr>
 	</div>
 
+  <button id="gato-btn">
+    <canvas id="gato-canva" width=40 height=50>
+  </button>
+
+  <div id="textcontainer">
+    <canvas id="textbox" width=80 height=30></canvas>
+    <canvas id="textC" width="750" height="281"></canvas>
+  </canvas>
 	<!-- Scripts -->
   <script>
 		// Variables globales para rutas de imágenes 
     const bgImgPath = "{% static 'imgs/bg.png' %}";
 		const btnImgPath = "{% static 'imgs/earth.png' %}";
+		const gatoImgPath = "{% static 'imgs/gato/idle.png' %}";
+    const gatoExplosionPath = "{% static 'imgs/gato/explosion.png' %}";
+    const gatoClickPath = "{% static 'imgs/gato/click.png' %}";
+    const dialoguePath = "{% static 'imgs/dialogue.png' %}";
   </script>
 	
   <script type="module" src="{% static 'js/earth.js' %}"></script>
   <script type="module" src="{% static 'js/bg.js' %}"></script>
   <script type="module" src="{% static 'js/menu-tienda.js' %}"></script>
   <script type="module" src="{% static 'js/preload.js' %}"></script>
+  <script type="module" src="{% static 'js/gato.js' %}"></script>
 
 </body>
 </html>
