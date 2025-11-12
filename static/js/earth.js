@@ -1,4 +1,4 @@
-import { animateSprite } from './animations.js';
+import { AnimatedSprite } from './animations.js';
 import { update_bar } from './bar.js';
 
 // Click en el botón
@@ -86,7 +86,7 @@ const img = new Image();
 img.src = btnImgPath;
 
 // Llamamos a la funcion de animations.js para empezar la animación
-animateSprite({
+const anim = new AnimatedSprite({
   canvas: canvas,
   img: img,
   frameWidth: FRAME_WIDTH,
@@ -96,3 +96,5 @@ animateSprite({
   frameDuration: FRAME_DURATION,
   getScale: () => scale
 });
+
+anim.start();

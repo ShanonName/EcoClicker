@@ -1,4 +1,4 @@
-import { animateSprite } from './animations.js';
+import { AnimatedSprite } from './animations.js';
 
 // Fondo animado
 // Variables
@@ -15,7 +15,7 @@ bgImg.src = bgImgPath;
 
 
 // Llamamos a la funcion de animations.js para empezar la animación
-animateSprite({
+const anim = new AnimatedSprite({
     canvas: bgCanvas,
     img: bgImg,
     frameWidth: SPRITE_WIDTH,
@@ -25,3 +25,4 @@ animateSprite({
     frameDuration: FRAME_DURATION
 });
 
+anim.start();
