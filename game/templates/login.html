@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Eco Clicker - Iniciar sesión</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+  </head>
+  <body>
+    <main class="auth-container">
+      <h1>Eco Clicker</h1>
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <section class="forms">
+        <form method="post" class="auth-form">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="login" />
+          <h2>Iniciar sesión</h2>
+          <label>
+            Usuario
+            <input type="text" name="username" required />
+          </label>
+          <label>
+            Contraseña
+            <input type="password" name="password" required />
+          </label>
+          <button type="submit">Entrar</button>
+        </form>
+        <form method="post" class="auth-form">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="register" />
+          <h2>Crear cuenta</h2>
+          <label>
+            Usuario
+            <input type="text" name="username" required />
+          </label>
+          <label>
+            Contraseña
+            <input type="password" name="password" required />
+          </label>
+          <button type="submit">Registrarme</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
