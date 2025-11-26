@@ -8,6 +8,9 @@ let bg = document.getElementById("fake-bg");
 let stats_menu = document.getElementById("menu-stats")
 let stats_button = document.getElementById("stats-button")
 
+let menu_about = document.getElementById("menu-about");
+let about_btn = document.getElementById("about-btn");
+
 menu_button.addEventListener("click", (event) => {
     menu_main.classList.toggle("hidden");
     bg.classList.toggle("hidden");
@@ -27,9 +30,15 @@ login_button.addEventListener("click", (event) => {
     }
 })
 
+about_btn.addEventListener("click", (event) => {
+    menu_about.classList.toggle("hidden");
+})
+
+
 if (login_a) {
     login_a.addEventListener("click", function(event) {
         event.preventDefault();
+        bg.classList.toggle("hidden");
 
         menu_login.classList.toggle("hidden");
     })
@@ -99,4 +108,5 @@ function disable_menu() {
     menu_main.classList.add("hidden");
     menu_login.classList.add("hidden");
     stats_menu.classList.add("hidden");
+    menu_about.classList.add("hidden");
 }

@@ -18,7 +18,7 @@ if (EarthBtn) {
       .then(response => response.json())
       .then(data => {
         puntos.textContent = data.puntuacion;
-        update_bar(data.puntuacion)
+        update_bar(data.pt)
 
         let EarthRec = canvas.getBoundingClientRect();
 
