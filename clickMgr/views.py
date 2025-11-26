@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.staticfiles.finders import find
 import random
 import math
+import time
 from .models import Player, Stats
 
 GAME_CONFIG = {
@@ -63,7 +64,13 @@ def aumentar_puntuacion(request):
     points = 1
 
     for key, value in stat.mejoras.items():
+        if key not in GAME_CONFIG: continue
         points += GAME_CONFIG[key]["power"] * value
+
+    bonus_expires_at = request.session.get('bonus_expires_at', 0)
+
+    if time.time() < bonus_expires_at:
+        points *= 2
 
     stat.clicks += 1
     stat.puntaje += points
@@ -78,6 +85,14 @@ def aumentar_puntuacion(request):
         "puntuacion": stat.puntaje,
         "new_score": points
     })
+
+def get_multi(request):
+    bonus_expires_at = request.session.get('bonus_expires_at', 0)
+    multi = 1
+    if time.time() < bonus_expires_at:
+        multi = 2
+
+    return JsonResponse({"multi": multi})
 
 def get_puntuacion(request):
     """Devuelve la puntuación actual del jugador o del invitado."""
@@ -99,6 +114,9 @@ def get_message(request):
     if (not ruta_absoluta): return JsonResponse({"error": "archivo no encontrado."})
     
     playerid = request.session.get("player_id")
+    expiration_time = time.time() + 10
+    request.session['bonus_expires_at'] = expiration_time
+
     if playerid:
         player = Player.objects.filter(id=playerid).first()
         if player:

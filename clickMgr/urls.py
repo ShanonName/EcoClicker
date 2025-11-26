@@ -10,5 +10,6 @@ urlpatterns = [
     path("login/", views.login_view, name="login"),
     path("logout/", views.logout_view, name="logout"),
     path("buy-upgrade/", views.comprar_mejora),
-    path("get-price-upgrade/", views.get_price_mejora)
+    path("get-price-upgrade/", views.get_price_mejora),
+    path("get-multi", views.get_multi)
 ]

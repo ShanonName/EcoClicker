@@ -33,12 +33,12 @@ python manage.py runserver
 ```
 
 ### To-Do
-- [ ] Diseños de la tienda
-- [ ] Diseño cosas a mejorar
+- [x] Diseños de la tienda
+- [x] Diseño cosas a mejorar
 - [ ] Basura spawneada
 - [ ] Fix dialogue box
 - [ ] About us
-- [ ] Estadisticas
+- [x] Estadisticas
 - [x] Sistema de cookies
 - [x] Sistema de login
 
