@@ -35,9 +35,12 @@ python manage.py runserver
 ### To-Do
 - [ ] Diseños de la tienda
 - [ ] Diseño cosas a mejorar
-- [ ] Sistema de cookies
-- [ ] Sistema de login
-- [ ] Pagina de inicio
+- [ ] Basura spawneada
+- [ ] Fix dialogue box
+- [ ] About us
+- [ ] Estadisticas
+- [x] Sistema de cookies
+- [x] Sistema de login
 
 #### Colaboraciones
 

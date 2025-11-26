@@ -25,6 +25,14 @@
 	<!-- Puntuacion -->
   <p id="puntuacion">Puntuación: <span id="puntos">{{ puntuacion }}</span></p>
 
+  <div id="session-info">
+    {% if username %}
+      <a href="{% url 'logout' %}" id="logout-a" class="session-data">Usuario: {{ username }}</a>
+    {% else %}
+      <a href="#" id="open-login-a" class="session-data">Usuario:  Invitado</a>
+    {% endif %}
+  </div>
+
 	<!-- Botón de la Tierra -->
   <div id="button-container">
     
@@ -52,7 +60,57 @@
   <div id="textcontainer">
     <canvas id="textbox" width=80 height=30></canvas>
     <canvas id="textC" width="750" height="281"></canvas>
-  </canvas>
+  </div>
+
+  <!-- Login y menus -->
+  <button id="menu-toggle-btn" class="menu-button">&#9776; </button>
+
+  <div class="block-interactions hidden" id="fake-bg"></div>
+
+  <div id="menu" class="menu-container hidden"> <!-- Cosa que aprendi recien y me da lata implementar para el resto del codigo pero esta piola-->
+    {% if username %}
+    <button class="menu-item" id="stats-button">Estadisticas</button>
+    <script>let logout = "{% url 'logout' %}";</script>
+    <button class="menu-item logout" id="session-menu">Logout</button>
+    {% else %}
+    <button class="menu-item login" id="session-menu">Login</button>
+    {% endif %}
+
+    <button class="menu-item">Nuestro equipo</button>
+  </div>
+
+  <div id="menu-login" class="menu-container hidden">
+    <h2>Iniciar sesión o registrarse</h2>
+
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Usuario" required class="login-in"/>
+        <input type="password" name="password" placeholder="Contraseña" required class="login-in"/>
+        <div class="actions">
+          <button type="submit" name="action" value="login" class="button-login" id="login-btn">Iniciar sesión</button>
+          <button type="submit" name="action" value="register" class="button-login" id="registrarse-btn">Registrarse</button>
+        </div>
+    </form>
+  </div>
+
+  <div id="menu-stats" class="menu-container stats hidden">
+    <h2>Estadisticas</h2>
+    <p class="p-stats">
+      Puntos: <span id="pts"> {{ puntuacion }}</span><br>
+      Puntos Totales: <span id="pt"> 0 </span><br>
+      Clicks: <span id="clicks"> 0 </span><br>
+      Gatos: <span id="gatos"> 0 </span><br>
+      Multiplicador: <span id="multi"> x0 </span><br>
+    </p>
+    <p class="h4-stats">Mejoras</p>
+    <p id="second-stats" class="p-stats second">
+      1: 0<br>
+      2: 0<br>
+      3: 0<br>
+      4: 0<br>
+    </p>
+  </div>
+
 	<!-- Scripts -->
   <script>
 		// Variables globales para rutas de imágenes 
@@ -69,6 +127,20 @@
   <script type="module" src="{% static 'js/menu-tienda.js' %}"></script>
   <script type="module" src="{% static 'js/preload.js' %}"></script>
   <script type="module" src="{% static 'js/gato.js' %}"></script>
+  <script type="module" src="{% static 'js/menu.js' %}"></script>
 
+  {% if messages %}
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const msgs = [
+        {% for message in messages %}
+          "{{ message }}",
+        {% endfor %}
+      ];
+      if (msgs.length > 0) alert(msgs.join("\n"));
+    });
+  </script>
+  {% endif %}
+  
 </body>
 </html>
