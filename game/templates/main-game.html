@@ -48,9 +48,8 @@
 
 	<!-- Menú de la tienda -->
 	<div id="shop-menu">
-		<canvas id="shop" width="500" height="600"></canvas>
+		<canvas id="shop" width="780" height="780"></canvas>
 		<p id="menu-title">Tienda</p>
-		<hr>
 	</div>
 
   <button id="gato-btn">
@@ -120,6 +119,8 @@
     const gatoExplosionPath = "{% static 'imgs/gato/explosion.png' %}";
     const gatoClickPath = "{% static 'imgs/gato/click.png' %}";
     const dialoguePath = "{% static 'imgs/dialogue.png' %}";
+	  const shopPath = "{% static 'imgs/tienda/satelite.png' %}";
+    const imgsPath = "{% static 'imgs'%}";
   </script>
 	
   <script type="module" src="{% static 'js/earth.js' %}"></script>
@@ -128,6 +129,7 @@
   <script type="module" src="{% static 'js/preload.js' %}"></script>
   <script type="module" src="{% static 'js/gato.js' %}"></script>
   <script type="module" src="{% static 'js/menu.js' %}"></script>
+  
 
   {% if messages %}
   <script>
