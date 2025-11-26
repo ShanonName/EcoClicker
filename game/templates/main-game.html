@@ -38,7 +38,7 @@
     
     <button id="Earth-btn"> 
       <canvas id="Earth-canvas" width="48" height="48"></canvas>
-      <img id="Garbage" src="{% static 'imgs/garbage.png' %}" width=32 height=32>
+      <!--<img id="Garbage" src="{% static 'imgs/garbage.png' %}" width=32 height=32>-->
     </button>
   </div>
 
@@ -75,7 +75,7 @@
     <button class="menu-item login" id="session-menu">Login</button>
     {% endif %}
 
-    <button class="menu-item">Nuestro equipo</button>
+    <button class="menu-item" id="about-btn">Nuestro equipo</button>
   </div>
 
   <div id="menu-login" class="menu-container hidden">
@@ -108,6 +108,24 @@
       3: 0<br>
       4: 0<br>
     </p>
+  </div>
+
+  <div id="menu-about" class="menu-container hidden">
+    <h2>Nuestro Equipo</h2>
+    <p class="about-us">
+      Grupo proyecto<br>
+<br>
+        - Benjamin Labbe (backend)<br>
+        - Agustin Soto (backend)<br>
+        - Martin Pimentel(frontend)<br>
+        - Dante Aguayo (frontend)<br>
+        - Fabian Carrera (arte)<br>
+      <br>
+      Ayudas externas<br>
+<br>
+        - Axow (arte)<br>
+    </p>
+    
   </div>
 
 	<!-- Scripts -->

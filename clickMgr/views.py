@@ -49,6 +49,7 @@ def aumentar_puntuacion(request):
         request.session["guest_score"] = puntos
         return JsonResponse({
             "success": True,
+            "pt": puntos,
             "puntuacion": puntos,
             "new_score": puntos
         })
@@ -82,6 +83,7 @@ def aumentar_puntuacion(request):
 
     return JsonResponse({
         "success": True,
+        "pt": stat.puntaje_total,
         "puntuacion": stat.puntaje,
         "new_score": points
     })
@@ -100,14 +102,14 @@ def get_puntuacion(request):
 
     # Si no hay sesión → modo invitado
     if not player_id:
-        return JsonResponse({"puntuacion": request.session.get("guest_score", 0)})
+        return JsonResponse({"puntuacion": request.session.get("guest_score", 0), "pt": request.session.get("guest_score", 0)})
 
     player = Player.objects.filter(id=player_id).first()
     if not player:
         return JsonResponse({"puntuacion": 0})
 
     stat = Stats.objects.filter(user=player_id).first()
-    return JsonResponse({"puntuacion": stat.puntaje})
+    return JsonResponse({"puntuacion": stat.puntaje, "pt": stat.puntaje_total})
 
 def get_message(request):
     ruta_absoluta = find("messages/messages.txt")

@@ -1,5 +1,6 @@
 import { AnimatedSprite } from "./animations.js";
 import {  DialogueBox  } from "./dialoguebox.js";
+import { activate_bonus_mode } from "./bar.js"
 
 let canvas = document.getElementById("gato-canva");
 let button = document.getElementById("gato-btn")
@@ -152,7 +153,7 @@ function buenPunto() {
   //console.log(r, button.style.opacity)
   //console.log(button.style.opacity == 0)
 
-  if (r < 1 && button.style.opacity === "0") {
+  if (r < .05 && button.style.opacity === "0") {
     console.log("Cat called");
     if (spawnId) {
       cancelAnimationFrame(spawnId);
@@ -180,6 +181,7 @@ button.addEventListener("click", async (event) => {
   let textbox = new DialogueBox("MiawStrong", [data["message"]]);
   let barra = document.getElementById("progress");
 
+  activate_bonus_mode(10);
   barra.style.opacity = "0";
   textbox.enable();
   textbox.write();

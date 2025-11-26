@@ -286,6 +286,12 @@ h2 {
     z-index: 999;
 }
 
+.about-us {
+    position: absolute;
+    left: 3%;
+    top: 20%;
+}
+
 .hidden {
     display: none;
 }
@@ -294,8 +300,8 @@ h2 {
     font-family: 'Press Start 2P', monospace;
     font-size: 20px;
     position: absolute;
-    left: 73%;
-    top: 3%;
+    right: 5%;
+    top: 5%;
     color: white;
     text-decoration: none;
 }
