@@ -87,6 +87,12 @@ stats_button.addEventListener("click", (event) => {
             stats_menu.classList.toggle("hidden");
         })
 
+    fetch("get-multi")
+        .then(response => response.json())
+        .then(data => {
+            multi.textContent = "x"+data["multi"]
+        })
+
 });
 
 function disable_menu() {

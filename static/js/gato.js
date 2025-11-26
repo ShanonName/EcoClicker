@@ -60,7 +60,7 @@ const anim = new AnimatedSprite(gatoAnim["idle"]);
 let angle = 350;
 let velocity = 1;
 
-let margenX = window.innerWidth - window.innerWidth * .27;
+let margenX = window.innerWidth - window.innerWidth * .02 - 780;
 let margenY = window.innerHeight;
 
 // Porque tantos ids, sepa la bola
@@ -94,7 +94,7 @@ function move(velocity, angle) {
   gatX += x;
   gatY += y;
 
-  margenX = window.innerWidth - window.innerWidth * .27;
+  margenX = window.innerWidth - window.innerWidth * .02 - 780;
   margenY = window.innerHeight;
 
   if (gatX < 0 || gatX > margenX - button.offsetWidth) angle += 180;

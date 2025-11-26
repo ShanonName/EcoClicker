@@ -4,13 +4,41 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.contrib.staticfiles.finders import find
 import random
+import math
+import time
 from .models import Player, Stats
+
+GAME_CONFIG = {
+    "Voluntario": {
+        "base_cost": 10,
+        "cost_multiplier": 1.5,
+        "power": 1, # Ejemplo: +1 punto por click
+        "name": "Voluntario"
+    },
+    "Jaula": {
+        "base_cost": 50,
+        "cost_multiplier": 1.6,
+        "power": 5,
+        "name": "Jaula"
+    },
+    "Punto Limpio": {
+        "base_cost": 200,
+        "cost_multiplier": 1.7,
+        "power": 20,
+        "name": "Punto Limpio"
+    },
+    "Industria": {
+        "base_cost": 1000,
+        "cost_multiplier": 1.8,
+        "power": 100,
+        "name": "Industria"
+    }
+}
 
 # Create your views here.
 def aumentar_puntuacion(request):
     """Suma 1 punto al jugador loggeado o al invitado."""
 
-    points = 1
 
     player_id = request.session.get("player_id")
 
@@ -32,6 +60,18 @@ def aumentar_puntuacion(request):
         return JsonResponse({"error": "Jugador no encontrado"}, status=404)
 
     stat = player.stats
+
+    points = 1
+
+    for key, value in stat.mejoras.items():
+        if key not in GAME_CONFIG: continue
+        points += GAME_CONFIG[key]["power"] * value
+
+    bonus_expires_at = request.session.get('bonus_expires_at', 0)
+
+    if time.time() < bonus_expires_at:
+        points *= 2
+
     stat.clicks += 1
     stat.puntaje += points
     stat.puntaje_total += points
@@ -45,6 +85,14 @@ def aumentar_puntuacion(request):
         "puntuacion": stat.puntaje,
         "new_score": points
     })
+
+def get_multi(request):
+    bonus_expires_at = request.session.get('bonus_expires_at', 0)
+    multi = 1
+    if time.time() < bonus_expires_at:
+        multi = 2
+
+    return JsonResponse({"multi": multi})
 
 def get_puntuacion(request):
     """Devuelve la puntuación actual del jugador o del invitado."""
@@ -66,6 +114,9 @@ def get_message(request):
     if (not ruta_absoluta): return JsonResponse({"error": "archivo no encontrado."})
     
     playerid = request.session.get("player_id")
+    expiration_time = time.time() + 10
+    request.session['bonus_expires_at'] = expiration_time
+
     if playerid:
         player = Player.objects.filter(id=playerid).first()
         if player:
@@ -155,3 +206,89 @@ def logout_view(request):
     request.session.pop("player_id", None)
     messages.info(request, "Sesión cerrada correctamente.")
     return redirect("game")
+
+
+def comprar_mejora(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Método no permitido"}, status=405)
+
+    player_id = request.session.get("player_id")
+    if not player_id:
+        return JsonResponse({"error": "Debes iniciar sesión para comprar"}, status=403)
+
+    player = Player.objects.filter(id=player_id).first()
+    if not player:
+        return JsonResponse({"error": "Jugador no encontrado"}, status=404)
+
+    # Obtenemos el ID de la mejora que el usuario quiere comprar (desde el JS)
+    mejora_id = request.POST.get("mejora_id") # ej: 'voluntario'
+    
+    # Validar que la mejora exista en nuestro diccionario maestro
+    config = GAME_CONFIG.get(mejora_id)
+    if not config:
+        return JsonResponse({"error": "Mejora no válida"}, status=400)
+
+    stats = player.stats
+    
+    # Obtenemos el nivel actual (si no tiene, es 0)
+    current_level = stats.mejoras.get(mejora_id, 0)
+
+    # --- FÓRMULA DE COSTO ---
+    # Precio = CostoBase * (Multiplicador ^ NivelActual)
+    costo_actual = math.floor(config["base_cost"] * (config["cost_multiplier"] ** current_level))
+
+    # Verificamos si tiene dinero
+    if stats.puntaje >= costo_actual:
+        # 1. Restar puntos
+        stats.puntaje -= costo_actual
+        
+        # 2. Subir nivel
+        stats.mejoras[mejora_id] = current_level + 1
+        
+        # 3. Guardar cambios
+        stats.save()
+        
+        # Calculamos el precio del SIGUIENTE nivel para actualizar la UI
+        next_cost = math.floor(config["base_cost"] * (config["cost_multiplier"] ** (current_level + 1)))
+
+        return JsonResponse({
+            "success": True,
+            "nuevo_nivel": current_level + 1,
+            "puntuacion_restante": stats.puntaje,
+            "costo_siguiente": next_cost,
+            "mejora_id": mejora_id
+        })
+    else:
+        return JsonResponse({
+            "success": False, 
+            "error": f"No tienes suficientes puntos. Necesitas {costo_actual}."
+        })
+
+def get_price_mejora(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Método no permitido"}, status=405)
+    
+    player_id = request.session.get("player_id")
+    if not player_id:
+        return JsonResponse({"error": "Debes iniciar sesión para comprar"}, status=403)
+
+    player = Player.objects.filter(id=player_id).first()
+    if not player:
+        return JsonResponse({"error": "Jugador no encontrado"}, status=404)
+
+    # Obtenemos el ID de la mejora que el usuario quiere comprar (desde el JS)
+    mejora_id = request.POST.get("mejora_id") # ej: 'voluntario'
+    
+    # Validar que la mejora exista en nuestro diccionario maestro
+    config = GAME_CONFIG.get(mejora_id)
+    if not config:
+        return JsonResponse({"error": "Mejora no válida"}, status=400)
+
+    stats = player.stats
+    
+    # Obtenemos el nivel actual (si no tiene, es 0)
+    current_level = stats.mejoras.get(mejora_id, 0)
+
+    costo_actual = math.floor(config["base_cost"] * (config["cost_multiplier"] ** current_level))
+
+    return JsonResponse({"price": costo_actual})
